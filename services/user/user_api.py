@@ -1,10 +1,8 @@
-
 import requests
 from services.user.endpoints import Endpoints
 
 
 class UserAPI:
-
     @staticmethod
     def create_user(user_data):
         return requests.post(Endpoints.CREATE_USER, json=user_data)

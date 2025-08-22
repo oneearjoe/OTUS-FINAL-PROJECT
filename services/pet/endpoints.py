@@ -2,11 +2,8 @@ from services.base import Base
 
 
 class Endpoints:
-
     def __init__(self):
         self.base = Base()
-    
-
 
     PET = f"{Base.BASE_URL}/v2/pet"
     PET_ID = f"{PET}/{{}}"

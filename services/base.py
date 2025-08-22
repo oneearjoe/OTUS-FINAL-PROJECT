@@ -1,10 +1,19 @@
 import time
+from datetime import datetime, timezone
 
 
 class Base:
     BASE_URL = "https://petstore.swagger.io"
 
-    def wait_for_status(func, expected_status=200, timeout=5, interval=0.5, max_retries=10, *args, **kwargs):
+    def wait_for_status(
+        func,
+        expected_status=200,
+        timeout=5,
+        interval=0.5,
+        max_retries=10,
+        *args,
+        **kwargs,
+    ):
         """
         Вызывает функцию func(*args, **kwargs) до тех пор, пока её ответ не вернёт expected_status
         или не выйдет таймаут или лимит повторов.

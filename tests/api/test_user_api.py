@@ -14,7 +14,9 @@ def test_get_user_by_name(user_data):
 
     print(user_data)
 
-    response = Base.wait_for_status(UserAPI.get_user_by_name, 200, username=user_data["username"])
+    response = Base.wait_for_status(
+        UserAPI.get_user_by_name, 200, username=user_data["username"]
+    )
     assert response.json()["username"] == user_data["username"]
 
     body = response.json()
@@ -40,7 +42,9 @@ def test_update_user(user_data):
     assert response.status_code == 200
     assert response.json()["message"] == str(user_data["id"])
 
-    response = Base.wait_for_status(UserAPI.get_user_by_name, 200, username=user_data["username"])
+    response = Base.wait_for_status(
+        UserAPI.get_user_by_name, 200, username=user_data["username"]
+    )
     assert response.status_code == 200
     assert response.json()["firstName"] == "UpdatedName"
 
@@ -53,7 +57,9 @@ def test_logout_user():
 def test_delete_user(user_data):
     UserAPI.create_user(user_data)
 
-    response = Base.wait_for_status(UserAPI.delete_user, 200, username=user_data["username"])
+    response = Base.wait_for_status(
+        UserAPI.delete_user, 200, username=user_data["username"]
+    )
     assert response.status_code == 200
     assert response.json()["message"] == user_data["username"]
 
