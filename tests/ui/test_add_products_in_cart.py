@@ -9,7 +9,7 @@ def test_add_products_to_cart(browser):
     products_page = ProductsPage(browser)
 
     with allure.step("Открываем страницу продуктов"):
-        products_page.open()
+        products_page.open_product_page()
 
     with allure.step("Добавляем первый продукт в корзину"):
         products_page.add_first_product_to_cart()
@@ -18,7 +18,7 @@ def test_add_products_to_cart(browser):
         products_page.go_to_cart()
 
     with allure.step("Проверяем, что продукт появился в корзине"):
-        assert products_page.is_product_in_cart(), "Продукт не добавился в корзину"
+        products_page.is_product_in_cart(), "Продукт не добавился в корзину"
 
 
 @allure.feature("Корзина")
@@ -27,7 +27,7 @@ def test_remove_products_from_cart(browser):
     products_page = ProductsPage(browser)
 
     with allure.step("Открываем страницу продуктов"):
-        products_page.open()
+        products_page.open_product_page()
 
     with allure.step("Добавляем первый продукт в корзину"):
         products_page.add_first_product_to_cart()
@@ -37,7 +37,7 @@ def test_remove_products_from_cart(browser):
         products_page.go_to_cart()
 
     with allure.step("Проверяем, что продукт появился в корзине"):
-        assert products_page.is_product_in_cart(), "Продукт не добавился в корзину"
+        products_page.is_product_in_cart(), "Продукт не добавился в корзину"
 
     with allure.step("Удаляем продукт из корзины"):
         products_page.remove_product_from_cart()
@@ -45,4 +45,3 @@ def test_remove_products_from_cart(browser):
     time.sleep(2)
     with allure.step("Проверяем, что корзина пустая"):
         products_page.is_cart_empty(), "Продукт не был удален из корзины"
-

@@ -5,7 +5,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 
 
-
 class BasePage:
     def __init__(self, browser, wait=3):
         self.browser = browser

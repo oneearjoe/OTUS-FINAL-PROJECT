@@ -16,4 +16,4 @@ def test_verify_test_cases_page(browser):
         home_page.click_element(home_page.TEST_CASES_LINK)
 
     with allure.step("Проверяем, что открылась страница Test Cases"):
-        test_cases_page.is_test_cases_page_opened(), 
+        (test_cases_page.is_test_cases_page_opened(),)

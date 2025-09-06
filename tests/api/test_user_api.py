@@ -1,14 +1,18 @@
-import time
+import allure
 from services.user.user_api import UserAPI
 from services.base import Base
 
 
+@allure.feature("API пользователей")
+@allure.story("Создание пользователя")
 def test_create_user(user_data):
     response = UserAPI.create_user(user_data)
     assert response.status_code == 200
     assert response.json()["message"] == str(user_data["id"])
 
 
+@allure.feature("API пользователей")
+@allure.story("Получение пользователя по имени")
 def test_get_user_by_name(user_data):
     UserAPI.create_user(user_data)
 
@@ -24,6 +28,8 @@ def test_get_user_by_name(user_data):
     assert body["email"] == user_data["email"]
 
 
+@allure.feature("API пользователей")
+@allure.story("Логин пользователя")
 def test_login_user(user_data):
     UserAPI.create_user(user_data)
 
@@ -32,6 +38,8 @@ def test_login_user(user_data):
     assert "logged in user session" in response.text
 
 
+@allure.feature("API пользователей")
+@allure.story("Обновление данных пользователя")
 def test_update_user(user_data):
     UserAPI.create_user(user_data)
 
@@ -49,11 +57,15 @@ def test_update_user(user_data):
     assert response.json()["firstName"] == "UpdatedName"
 
 
+@allure.feature("API пользователей")
+@allure.story("Логаут пользователя")
 def test_logout_user():
     response = UserAPI.logout()
     assert response.status_code == 200
 
 
+@allure.feature("API пользователей")
+@allure.story("Удаление пользователя")
 def test_delete_user(user_data):
     UserAPI.create_user(user_data)
 

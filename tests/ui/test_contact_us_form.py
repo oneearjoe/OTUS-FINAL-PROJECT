@@ -10,9 +10,8 @@ fake = Faker()
 def test_contact_us_form(browser, tmp_path):
     contact_page = ContactUsPage(browser)
 
-
     with allure.step("Открываем страницу Contact Us"):
-        contact_page.open()
+        contact_page.open_contact_page()
 
     with allure.step("Заполняем форму"):
         contact_page.fill_contact_form(
@@ -20,7 +19,6 @@ def test_contact_us_form(browser, tmp_path):
             email=fake.email(),
             subject="Test Subject",
             message="This is a test message",
-
         )
 
     with allure.step("Отправляем форму"):
@@ -29,5 +27,4 @@ def test_contact_us_form(browser, tmp_path):
         contact_page.accept_alert()
 
     with allure.step("Проверяем сообщение об успешной отправке"):
-        assert contact_page.is_success_message_visible(), \
-            "Сообщение об успешной отправке не появилось"
+        contact_page.is_success_message_visible()

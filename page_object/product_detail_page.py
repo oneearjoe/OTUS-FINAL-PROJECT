@@ -7,21 +7,25 @@ class ProductDetailPage(BasePage):
     REVIEW_EMAIL_INPUT = (By.ID, "email")
     REVIEW_TEXTAREA = (By.ID, "review")
     SUBMIT_REVIEW_BTN = (By.ID, "button-review")
-    SUCCESS_REVIEW_MSG = (By.CSS_SELECTOR, ".alert-success")  # сообщение после отправки
+    SUCCESS_REVIEW_MSG = (By.CSS_SELECTOR, ".alert-success")
 
-    def open(self, product_url: str):
-        self.browser.get(product_url)
+    def open_product_details_page(self):
+        self.logger.info(
+            f"{self.class_name}: Open page {self.browser.base_url + '/product_details/1'}"
+        )
 
-    def fill_review_form(self, name: str, email: str, review: str):
+        self.browser.get(self.browser.base_url + "/product_details/1")
+        return self
+
+    def fill_review_form(self, name, email, review):
+        self.logger.info("Заполняем отзыв")
         self.input_value(self.REVIEW_NAME_INPUT, name)
         self.input_value(self.REVIEW_EMAIL_INPUT, email)
         self.input_value(self.REVIEW_TEXTAREA, review)
 
     def submit_review(self):
+        self.logger.info("Подтверждаем отзыв")
         self.click_element(self.SUBMIT_REVIEW_BTN)
 
-    def is_review_submitted(self) -> bool:
-        try:
-            return self.get_element(self.SUCCESS_REVIEW_MSG).is_displayed()
-        except:
-            return False
+    def is_review_submitted(self):
+        assert self.get_element(self.SUCCESS_REVIEW_MSG).is_displayed()

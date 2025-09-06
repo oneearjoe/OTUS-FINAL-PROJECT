@@ -9,10 +9,15 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.edge.options import Options as EdgeOptions
 
 
-
 def pytest_addoption(parser):
-    parser.addoption("--browser", default="chrome", help="Browser to run tests (chrome, edge, firefox)")
-    parser.addoption("--url", default="https://automationexercise.com/", help="Base OpenCart URL")
+    parser.addoption(
+        "--browser",
+        default="chrome",
+        help="Browser to run tests (chrome, edge, firefox)",
+    )
+    parser.addoption(
+        "--url", default="https://automationexercise.com/", help="Base OpenCart URL"
+    )
     parser.addoption("--log_level", default="INFO")
     parser.addoption("--selenoid_url", default="http://77.244.221.82/wd/hub")
     parser.addoption("--remote", action="store_true", help="Run tests on Selenoid")
@@ -62,8 +67,6 @@ def logger(request):
     )
 
 
-
-
 @pytest.fixture
 def browser(request, logger):
     browser_name = request.config.getoption("--browser")
@@ -72,7 +75,6 @@ def browser(request, logger):
     remote = request.config.getoption("--remote")
 
     if remote:
-
         if browser_name == "chrome":
             options = ChromeOptions()
         elif browser_name == "firefox":
@@ -80,13 +82,9 @@ def browser(request, logger):
         elif browser_name == "edge":
             options = EdgeOptions()
 
-
         options.set_capability("browserName", browser_name)
 
-        driver = webdriver.Remote(
-            command_executor=selenoid_url,
-            options=options
-        )
+        driver = webdriver.Remote(command_executor=selenoid_url, options=options)
     else:
         if browser_name == "chrome":
             driver = webdriver.Chrome()
@@ -94,7 +92,6 @@ def browser(request, logger):
             driver = webdriver.Edge()
         elif browser_name == "firefox":
             driver = webdriver.Firefox()
-
 
     driver.logger = logger
     driver.test_name = request.node.name
