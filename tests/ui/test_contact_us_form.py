@@ -1,10 +1,11 @@
 import allure
+import pytest
 from faker import Faker
 from page_object.contact_us_page import ContactUsPage
 
 fake = Faker()
 
-
+@pytest.mark.ui
 @allure.feature("Форма обратной связи")
 @allure.story("Contact Us Form")
 def test_contact_us_form(browser, tmp_path):

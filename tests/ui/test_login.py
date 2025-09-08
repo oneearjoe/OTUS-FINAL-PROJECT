@@ -1,10 +1,11 @@
 import allure
+import pytest
 from page_object.login_page import LoginPage
 from page_object.home_page import HomePage
 from page_object.signup_page import SignupPage
 from utils.api_helpers import register_user_via_api
 
-
+@pytest.mark.ui
 @allure.feature("Авторизация")
 @allure.story("Login User with correct email and password")
 def test_login_with_correct_credentials(browser):
@@ -23,7 +24,7 @@ def test_login_with_correct_credentials(browser):
     with allure.step("Проверяем, что пользователь успешно вошёл"):
         login_page.is_logged_in()
 
-
+@pytest.mark.ui
 @allure.feature("Авторизация")
 @allure.story("Login User with incorrect email and password")
 def test_login_user_with_incorrect_credentials(browser):
@@ -39,7 +40,7 @@ def test_login_user_with_incorrect_credentials(browser):
     with allure.step("Проверяем, что появилось сообщение об ошибке"):
         login_page.is_invalid_login_error_visible()
 
-
+@pytest.mark.ui
 @allure.feature("Авторизация")
 @allure.story("Logout User")
 def test_logout(browser):
