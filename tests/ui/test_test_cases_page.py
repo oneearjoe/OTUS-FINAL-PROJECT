@@ -4,7 +4,8 @@ from page_object.home_page import HomePage
 from page_object.test_cases_page import TestCasesPage
 
 @pytest.mark.ui
-@allure.title("Test Case: Verify Test Cases Page")
+@allure.feature("Test Cases")
+@allure.story("Проверка cnhfybws Test Cases")
 def test_verify_test_cases_page(browser):
     home_page = HomePage(browser)
     test_cases_page = TestCasesPage(browser)
