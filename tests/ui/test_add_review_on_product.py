@@ -1,10 +1,11 @@
 import allure
+import pytest
 from faker import Faker
 from page_object.product_detail_page import ProductDetailPage
 
 fake = Faker()
 
-
+@pytest.mark.ui
 @allure.feature("Продукты")
 @allure.story("Add Review on Product")
 def test_add_review_on_product(browser):

@@ -1,8 +1,9 @@
 import time
 import allure
+import pytest
 from page_object.products_page import ProductsPage
 
-
+@pytest.mark.ui
 @allure.feature("Корзина")
 @allure.story("Add Products to Cart")
 def test_add_products_to_cart(browser):
@@ -20,7 +21,7 @@ def test_add_products_to_cart(browser):
     with allure.step("Проверяем, что продукт появился в корзине"):
         products_page.is_product_in_cart(), "Продукт не добавился в корзину"
 
-
+@pytest.mark.ui
 @allure.feature("Корзина")
 @allure.story("Remove Products from Cart")
 def test_remove_products_from_cart(browser):

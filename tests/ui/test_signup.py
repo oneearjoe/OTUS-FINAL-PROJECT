@@ -1,9 +1,10 @@
 import allure
+import pytest
 from page_object.signup_page import SignupPage
 from utils.data_generator import generate_user_data
 from utils.api_helpers import register_user_via_api
 
-
+@pytest.mark.ui
 @allure.feature("Регистрация")
 @allure.story("Создание нового пользователя")
 def test_user_can_signup(browser):
@@ -23,7 +24,7 @@ def test_user_can_signup(browser):
     with allure.step("Проверяем сообщение об успешной регистрации"):
         signup_page.is_signed_up()
 
-
+@pytest.mark.ui
 @allure.feature("Регистрация")
 @allure.story("Попытка регистрации с существующим email")
 def test_register_existing_email(browser):
