@@ -1,8 +1,13 @@
+import logging
 import time
 from datetime import datetime, timezone
 
+import requests
+
 
 class Base:
+    logger = logging.getLogger("API")
+
     BASE_URL = "https://petstore.swagger.io"
 
     def wait_for_status(
@@ -40,3 +45,33 @@ class Base:
             f"{func.__name__} did not return {expected_status} within {timeout} seconds "
             f"after {retries} retries"
         )
+    
+
+    @classmethod
+    def post(cls, url, json=None, files=None):
+        "Sending POST request to url: " + url
+        cls.logger.info(f"Sending POST request to url:  {url}")
+        response = requests.post(url, json=json, files=files)
+        cls.logger.debug(f"Response [{response.status_code}] {response.text}")
+        return response
+
+    @classmethod
+    def get(cls, url, params=None):
+        cls.logger.info(f"Sending GET request to url: {url}")
+        response = requests.get(url, params=params)
+        cls.logger.debug(f"Response [{response.status_code}] {response.text}")
+        return response
+
+    @classmethod
+    def put(cls, url, json=None):
+        cls.logger.info(f"Sending PUT request to url: {url}")
+        response = requests.put(url, json=json)
+        cls.logger.debug(f"Response [{response.status_code}] {response.text}")
+        return response
+
+    @classmethod
+    def delete(cls, url):
+        cls.logger.info(f"Sending DELETE request to url: {url}")
+        response = requests.delete(url)
+        cls.logger.debug(f"Response [{response.status_code}] {response.text}")
+        return response
