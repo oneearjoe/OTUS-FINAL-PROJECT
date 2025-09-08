@@ -16,7 +16,7 @@ def pytest_addoption(parser):
         help="Browser to run tests (chrome, edge, firefox)",
     )
     parser.addoption(
-        "--url", default="https://automationexercise.com/", help="Base OpenCart URL"
+        "--url", default="https://automationexercise.com/", help="Base URL"
     )
     parser.addoption("--log_level", default="INFO")
     parser.addoption("--selenoid_url", default="http://77.244.221.82/wd/hub")
@@ -24,7 +24,7 @@ def pytest_addoption(parser):
 
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
-def pytest_runtest_makereport(item, call):
+def pytest_runtest_makereport(item):
     outcome = yield
     rep = outcome.get_result()
 
