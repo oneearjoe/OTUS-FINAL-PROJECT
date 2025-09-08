@@ -26,4 +26,8 @@ pytest -v --browser=chrome --log_level=INFO --alluredir=allure-results
 ```bash
 allure serve allure-results
 ```  
+
+
 Для запуска на selenoid необходимо указать при запуске параметр --selenoid_url и --remote
+
+добавь флаг -m api или -m ui что бы запустить только ui или только api тесты
