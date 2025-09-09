@@ -3,8 +3,6 @@ from page_object.base_page import BasePage
 
 
 class LoginPage(BasePage):
-    URL = "https://automationexercise.com/login"
-
     EMAIL_INPUT = (By.CSS_SELECTOR, '[data-qa="login-email"]')
     PASSWORD_INPUT = (By.CSS_SELECTOR, '[data-qa="login-password"]')
     LOGIN_BUTTON = (By.CSS_SELECTOR, '[data-qa="login-button"]')

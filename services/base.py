@@ -79,3 +79,7 @@ class Base:
         cls.logger.debug(f"Response status code[{response.status_code}]")
         cls.logger.debug(f"Response body  {response.text}")
         return response
+    
+    @staticmethod
+    def check_response_status_code(response, status_code):
+        assert response.status_code == status_code, f"Ожидаемый статус: [{status_code}] | Актуальный: [{response.status_code}]"

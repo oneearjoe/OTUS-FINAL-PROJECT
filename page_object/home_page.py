@@ -12,6 +12,5 @@ class HomePage(BasePage):
 
     def open_home_page(self):
         self.logger.info(f"{self.class_name}: Open page {self.browser.base_url}")
-
         self.browser.get(self.browser.base_url)
         return self

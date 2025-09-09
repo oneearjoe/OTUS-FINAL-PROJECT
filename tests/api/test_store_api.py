@@ -22,45 +22,44 @@ def test_place_order(order_data, status, complete):
     order_data["complete"] = complete
 
     response = StoreAPI.create_order(order_data)
+    json_data = response.json()
+    StoreAPI.check_response_status_code(response, 200)
 
-    assert response.status_code == 200, f"Ожидался статус 200, получен {response.status_code}"
-    body = response.json()
-    assert body["id"] == order_data["id"], f"ID заказа не совпадает: ожидалось {order_data['id']}, получено {body['id']}"
-    assert body["status"] == status, f"Статус заказа не совпадает: ожидалось {status}, получено {body['status']}"
-    assert body["complete"] == complete, f"Флаг complete не совпадает: ожидалось {complete}, получено {body['complete']}"
+    assert json_data["id"] == order_data["id"], f"ID заказа не совпадает: ожидалось {order_data['id']}, получено {body['id']}"
+    assert json_data["status"] == status, f"Статус заказа не совпадает: ожидалось {status}, получено {body['status']}"
+    assert json_data["complete"] == complete, f"Флаг complete не совпадает: ожидалось {complete}, получено {body['complete']}"
 
 @pytest.mark.api
 @allure.feature("Store API")
 @allure.story("Получение заказа по ID")
 def test_get_order(order_id):
     response = StoreAPI.get_order(order_id)
-    assert response.status_code == 200, f"Ожидался статус 200 при получении заказа, получен {response.status_code}"
+    StoreAPI.check_response_status_code(response, 200)
     assert response.json()["id"] == order_id, f"ID заказа не совпадает: ожидалось {order_id}, получено {response.json()['id']}"
 
 @pytest.mark.api
 @allure.feature("Store API")
 @allure.story("Удаление заказа")
 def test_delete_order(order_id):
-    delete_response = Base.wait_for_status(
+    response = Base.wait_for_status(
         StoreAPI.delete_order, 200, order_id=order_id
     )
-    assert delete_response.status_code == 200, f"Ожидался статус 200 при удалении заказа, получен {delete_response.status_code}"
-
-    get_response = StoreAPI.get_order(order_id)
-    assert get_response.status_code == 404, f"После удаления заказ должен быть недоступен (404), получен {get_response.status_code}"
+    StoreAPI.check_response_status_code(response, 200)
+    response = StoreAPI.get_order(order_id)
+    StoreAPI.check_response_status_code(response, 404)
 
 @pytest.mark.api
 @allure.feature("Store API")
 @allure.story("Удаление несуществующего заказа (негативный сценарий)")
 def test_delete_order_negative():
     response = StoreAPI.delete_order(999999)
-    assert response.status_code == 404, f"Для несуществующего заказа ожидается 404, получен {response.status_code}"
+    StoreAPI.check_response_status_code(response, 404)
 
 @pytest.mark.api
 @allure.feature("Store API")
 @allure.story("Получение инвентаря")
 def test_get_inventory():
     response = StoreAPI.get_inventory()
-    assert response.status_code == 200, f"Ожидался статус 200 при получении инвентаря, получен {response.status_code}"
-    data = response.json()
-    assert isinstance(data, dict)
+    StoreAPI.check_response_status_code(response, 200)
+    json_data = response.json()
+    assert isinstance(json_data, dict)

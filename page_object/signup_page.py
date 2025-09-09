@@ -1,8 +1,6 @@
 import time
 from selenium.webdriver.common.by import By
 from page_object.base_page import BasePage
-from utils.data_generator import generate_user_data
-import allure
 
 
 class SignupPage(BasePage):
@@ -25,12 +23,10 @@ class SignupPage(BasePage):
         '//p[text()="Email Address already exist!"]',
     )
 
-    @allure.step("Открытие страница логина/регистрации")
     def open_login_signup_page(self):
         self.logger.info(
             f"{self.class_name}: Open page {self.browser.base_url + '/login'}"
         )
-
         self.browser.get(self.browser.base_url + "/login")
         return self
 
