@@ -13,7 +13,6 @@ class ProductsPage(BasePage):
         self.logger.info(
             f"{self.class_name}: Open page {self.browser.base_url + '/products'}"
         )
-
         self.browser.get(self.browser.base_url + "/products")
         return self
 
@@ -25,7 +24,6 @@ class ProductsPage(BasePage):
         self.logger.info(
             f"{self.class_name}: Open page {self.browser.base_url + '/view_cart'}"
         )
-
         self.browser.get(self.browser.base_url + "/view_cart")
         return self
 
@@ -34,7 +32,6 @@ class ProductsPage(BasePage):
 
     def remove_product_from_cart(self):
         self.logger.info("Удаляем продукт из корзины")
-
         self.click_element(self.REMOVE_PRODUCT_BTN)
 
     def is_cart_empty(self):

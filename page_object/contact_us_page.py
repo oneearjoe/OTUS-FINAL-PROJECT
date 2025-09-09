@@ -9,7 +9,6 @@ class ContactUsPage(BasePage):
     MESSAGE_TEXTAREA = (By.CSS_SELECTOR, '[data-qa="message"]')
     UPLOAD_FILE_INPUT = (By.CSS_SELECTOR, '[name="upload_file"]')
     SUBMIT_BUTTON = (By.CSS_SELECTOR, '[data-qa="submit-button"]')
-
     SUCCESS_MESSAGE = (By.CSS_SELECTOR, ".status.alert.alert-success")
 
     def open_contact_page(self):
@@ -22,7 +21,6 @@ class ContactUsPage(BasePage):
 
     def fill_contact_form(self, name, email, subject, message):
         self.logger.info("Заполняем контактную инфу")
-
         self.input_value(self.NAME_INPUT, name)
         self.input_value(self.EMAIL_INPUT, email)
         self.input_value(self.SUBJECT_INPUT, subject)
@@ -37,6 +35,5 @@ class ContactUsPage(BasePage):
 
     def accept_alert(self):
         self.logger.info("Переключаемся на алерт и жмем ок")
-
         alert = self.browser.switch_to.alert
         alert.accept()
